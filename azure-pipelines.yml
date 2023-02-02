@@ -10,14 +10,14 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '45339af4-ec8f-4ab2-a792-a6e75ae9c635'
-  imageRepository: 'devopsdocker'
+  dockerRegistryServiceConnection: 'd9c7f439-b18e-4bdf-8945-b8c2892c6120'
+  imageRepository: 'bonlvbontestdevops'
   containerRegistry: 'bontestdevops.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
-  vmImageName: "agent2_ubuntu"
+  vmImageName: 'ubuntu-latest'
 
 stages:
 - stage: Build
@@ -25,9 +25,10 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      name: $(vmImageName)
-      demands: $(vmImageName)
+    pool: 
+      name: Test_Ubuntu
+      demands: 
+      - Agent.Name -equals agent2_ubuntu
     steps:
     - task: Docker@2
       displayName: Build and push an image to container registry

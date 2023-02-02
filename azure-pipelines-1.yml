@@ -26,7 +26,7 @@ stages:
   - job: Build
     displayName: Build
     pool: 
-      name: agent2_ubuntu
+      name: Test_Ubuntu
       demands: 
       - Agent.Name -equals agent2_ubuntu
     steps:

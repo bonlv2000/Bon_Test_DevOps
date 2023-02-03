@@ -43,11 +43,7 @@ stages:
       inputs:
         Contents: 'azure-aks.yaml'
         TargetFolder: '$(build.artifactstagingdirectory)'
-    - task: PublishPipelineArtifact@1
-      inputs:
-        targetPath: '$(Pipeline.Workspace)'
-        artifact: 'drop'
-        publishLocation: 'pipeline'
+
  
     - task: Kubernetes@1
       inputs:

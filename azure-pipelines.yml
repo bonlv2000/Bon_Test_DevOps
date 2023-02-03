@@ -39,3 +39,17 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+    - task: CopyFiles@2
+      inputs:
+        Contents: 'azure-aks.yaml'
+        TargetFolder: '$(build.artifactstagingdirectory)'
+
+ 
+    - task: Kubernetes@1
+      inputs:
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'Azure_K8s'
+        useConfigurationFile: true
+        configuration: '~/test/myagent/_work/2/a/azure-aks.yaml'
+        secretType: 'dockerRegistry'
+        containerRegistryType: 'Azure Container Registry'

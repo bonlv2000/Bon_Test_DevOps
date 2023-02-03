@@ -48,4 +48,9 @@ stages:
         targetPath: '$(Pipeline.Workspace)'
         artifact: 'drop'
         publishLocation: 'pipeline'
+    - task: PowerShell@2
+      displayName: Display version of app
+      inputs:
+        targetType: 'inline'
+        script: 'Write-Host "Version of app: $(Build.BuildId)"' 
         

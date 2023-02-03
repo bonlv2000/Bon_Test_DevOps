@@ -48,9 +48,12 @@ stages:
         targetPath: '$(Pipeline.Workspace)'
         artifact: 'drop'
         publishLocation: 'pipeline'
-    - task: PowerShell@2
-      displayName: Display version of app
+ 
+    - task: Kubernetes@1
       inputs:
-        targetType: 'inline'
-        script: 'Write-Host "Version of app: $(Build.BuildId)"' 
-        
+        connectionType: 'Kubernetes Service Connection'
+        kubernetesServiceEndpoint: 'Azure_K8s'
+        useConfigurationFile: true
+        configuration: '~/test/myagent/_work/2/a/azure-aks.yaml'
+        secretType: 'dockerRegistry'
+        containerRegistryType: 'Azure Container Registry'

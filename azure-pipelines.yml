@@ -48,3 +48,4 @@ stages:
         targetPath: '$(Pipeline.Workspace)'
         artifact: 'drop'
         publishLocation: 'pipeline'
+        

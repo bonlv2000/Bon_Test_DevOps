@@ -1,23 +1,16 @@
-###########
-# BUILDER #
-###########
-
-# pull official base image
-FROM node:16.5.0-alpine as builder
-
-# set working directory
-WORKDIR /usr/src/app
-
-# add `usr/src/app/node_modules/.bin` to $PATH
-ENV PATH usr/src/app/node_modules/.bin:$PATH
-
-# install and cache app dependencies
-COPY package.json .
-COPY package-lock.json .
+FROM node:16.5.0-alpine AS development
+# Set working directory
+WORKDIR /app
+#
+COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
+# Same as npm install
 RUN npm ci
-
-# create build
-COPY . .
+COPY . /app
+ENV CI=true
+ENV PORT=3000
+CMD [ "npm", "start" ]
+FROM development AS build
 RUN npm run build
 
 #########

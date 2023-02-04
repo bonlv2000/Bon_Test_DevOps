@@ -1,0 +1,33 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+- test
+
+variables:
+  ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }} :
+      imageRepository: '--verbose'
+  ${{else}}:
+      imageRepository: '121132'
+
+  dockerRegistryServiceConnection: 'd9c7f439-b18e-4bdf-8945-b8c2892c6120'
+  containerRegistry: 'bontestdevops.azurecr.io'
+     
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo $(Build.SourceBranch)
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Hello world
+    echo $(imageRepository)
+    echo $(dockerRegistryServiceConnection)
+    echo $(containerRegistry)
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
